@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Paso Cash - Casa de Empeños</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .admin-card {
+            transition: all 0.3s ease;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="handleLogoClick()">
+                    <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center">
+                        <span class="text-purple-800 font-bold text-xl">💰</span>
+                    </div>
+                    <h1 class="text-2xl font-bold">Al Paso Cash</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <button onclick="showSection('inicio')" class="hover:text-yellow-300 transition-colors">Inicio</button>
+                    <button onclick="showSection('servicios')" class="hover:text-yellow-300 transition-colors">Servicios</button>
+                    <button onclick="showSection('catalogo')" class="hover:text-yellow-300 transition-colors">Catálogo</button>
+                    <button onclick="showSection('contacto')" class="hover:text-yellow-300 transition-colors">Contacto</button>
+                    <button id="adminBtn" onclick="showAdminSection()" class="hover:text-yellow-300 transition-colors hidden">⚙️ Admin</button>
+                </div>
+                <button class="md:hidden" onclick="toggleMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden bg-purple-800 text-white p-4 md:hidden">
+        <button onclick="showSection('inicio')" class="block w-full text-left py-2 hover:text-yellow-300">Inicio</button>
+        <button onclick="showSection('servicios')" class="block w-full text-left py-2 hover:text-yellow-300">Servicios</button>
+        <button onclick="showSection('catalogo')" class="block w-full text-left py-2 hover:text-yellow-300">Catálogo</button>
+        <button onclick="showSection('contacto')" class="block w-full text-left py-2 hover:text-yellow-300">Contacto</button>
+        <button id="adminBtnMobile" onclick="showAdminSection()" class="block w-full text-left py-2 hover:text-yellow-300 hidden">⚙️ Admin</button>
+    </div>
+
+    <!-- Inicio Section -->
+    <section id="inicio" class="section">
+        <!-- Hero Section -->
+        <div class="gradient-bg text-white py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-5xl font-bold mb-6">Soluciones Financieras Rápidas</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">En Al Paso Cash te ofrecemos los mejores servicios de empeño, compra, venta y apartados con atención personalizada y servicio a domicilio.</p>
+                <div class="bg-yellow-400 text-purple-800 px-6 py-3 rounded-full inline-flex items-center space-x-2 font-bold text-lg">
+                    <span>🚗</span>
+                    <span>¡SERVICIO A DOMICILIO DISPONIBLE!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Preview -->
+        <div class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Nuestros Servicios</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="service-card bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl text-center cursor-pointer" onclick="showServiceDetail('empeñar')">
+                        <div class="text-4xl mb-4">💎</div>
+                        <h4 class="text-xl font-bold mb-2">Empeñar</h4>
+                        <p class="text-sm opacity-90">Obtén dinero rápido con tus objetos de valor</p>
+                    </div>
+                    <div class="service-card bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl text-center cursor-pointer" onclick="showServiceDetail('vender')">
+                        <div class="text-4xl mb-4">💰</div>
+                        <h4 class="text-xl font-bold mb-2">Vender</h4>
+                        <p class="text-sm opacity-90">Vende tus artículos al mejor precio</p>
+                    </div>
+                    <div class="service-card bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-xl text-center cursor-pointer" onclick="showServiceDetail('comprar')">
+                        <div class="text-4xl mb-4">🛍️</div>
+                        <h4 class="text-xl font-bold mb-2">Comprar</h4>
+                        <p class="text-sm opacity-90">Encuentra productos de calidad a precios increíbles</p>
+                    </div>
+                    <div class="service-card bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-xl text-center cursor-pointer" onclick="showServiceDetail('apartados')">
+                        <div class="text-4xl mb-4">📋</div>
+                        <h4 class="text-xl font-bold mb-2">Apartados</h4>
+                        <p class="text-sm opacity-90">Reserva el producto que te gusta</p>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us -->
+        <div class="py-16 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">¿Por Qué Elegirnos?</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="bg-blue-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🚗</div>
+                        <h4 class="text-xl font-bold mb-2">Servicio a Domicilio</h4>
+                        <p class="text-gray-600">Vamos hasta tu ubicación para mayor comodidad</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">⚡</div>
+                        <h4 class="text-xl font-bold mb-2">Proceso Rápido</h4>
+                        <p class="text-gray-600">Evaluación y pago en minutos</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-purple-500 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🔒</div>
+                        <h4 class="text-xl font-bold mb-2">Seguridad Total</h4>
+                        <p class="text-gray-600">Tus objetos están completamente seguros</p>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="section hidden">
+        <div class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nuestros Servicios Detallados</h2>
+                
+                <div id="servicesList" class="space-y-8">
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">💎</div>
+                            <h3 class="text-2xl font-bold text-blue-800">Servicio de Empeño</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">Obtén dinero inmediato empeñando tus objetos de valor. Aceptamos joyas, electrónicos, herramientas y más.</p>
+                        <ul class="list-disc list-inside text-gray-600 mb-4">
+                            <li>Evaluación gratuita e inmediata</li>
+                            <li>Mejores tasas del mercado</li>
+                            <li>Plazos flexibles de pago</li>
+                            <li>Servicio a domicilio disponible</li>
+                        </ul>
+                        <button onclick="openConsultation('empeño')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">Consultar Ahora</button>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-green-50 to-green-100 p-8 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">💰</div>
+                            <h3 class="text-2xl font-bold text-green-800">Compra de Artículos</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">Vendemos tus artículos al mejor precio del mercado con evaluación profesional.</p>
+                        <ul class="list-disc list-inside text-gray-600 mb-4">
+                            <li>Evaluación profesional gratuita</li>
+                            <li>Pago inmediato en efectivo</li>
+                            <li>Aceptamos gran variedad de artículos</li>
+                            <li>Proceso transparente y confiable</li>
+                        </ul>
+                        <button onclick="openConsultation('venta')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">Consultar Ahora</button>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-8 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">🛍️</div>
+                            <h3 class="text-2xl font-bold text-purple-800">Venta de Productos</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">Encuentra productos de calidad a precios increíbles en nuestro catálogo.</p>
+                        <ul class="list-disc list-inside text-gray-600 mb-4">
+                            <li>Productos verificados y garantizados</li>
+                            <li>Precios competitivos</li>
+                            <li>Gran variedad de categorías</li>
+                            <li>Entrega a domicilio disponible</li>
+                        </ul>
+                        <button onclick="showSection('catalogo')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">Ver Catálogo</button>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-orange-50 to-orange-100 p-8 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="text-4xl mr-4">📋</div>
+                            <h3 class="text-2xl font-bold text-orange-800">Sistema de Apartados</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">Reserva el producto que te interesa con nuestro sistema de apartados flexible.</p>
+                        <ul class="list-disc list-inside text-gray-600 mb-4">
+                            <li>Reserva con anticipo mínimo</li>
+                            <li>Plazos flexibles de pago</li>
+                            <li>Producto garantizado para ti</li>
+                            <li>Sin intereses adicionales</li>
+                        </ul>
+                        <button onclick="openConsultation('apartado')" class="bg-orange-600 text-white px-6 py-2 rounded-lg hover:orange-700 transition-colors">Consultar Ahora</button>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo Section -->
+    <section id="catalogo" class="section hidden">
+        <div class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Catálogo de Productos</h2>
+                
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button onclick="filterProducts('todos')" class="filter-btn bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">Todos</button>
+                    <button onclick="filterProducts('joyas')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">Joyas</button>
+                    <button onclick="filterProducts('electronicos')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">Electrónicos</button>
+                    <button onclick="filterProducts('herramientas')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">Herramientas</button>
+                    <button onclick="filterProducts('hogar')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">Hogar</button>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Products will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="section hidden">
+        <div class="py-16 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Contáctanos</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">Información de Contacto</h3>
+                        <div class="space-y-4" id="contactInfo">
+                            <!-- Contact info will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">Envíanos un Mensaje</h3>
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Nombre</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Teléfono</label>
+                                <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Servicio de Interés</label>
+                                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500">
+                                    <option>Empeño</option>
+                                    <option>Venta</option>
+                                    <option>Compra</option>
+                                    <option>Apartado</option>
+                                    <option>Servicio a Domicilio</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Mensaje</label>
+                                <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors font-semibold">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section id="admin" class="section hidden">
+        <div class="py-16 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Panel de Administración</h2>
+                
+                <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+                    <!-- Product Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">📦</span>
+                            Gestión de Productos
+                        </h3>
+                        
+                        <form id="productForm" class="space-y-4 mb-6">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Nombre del Producto</label>
+                                <input type="text" id="productName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Precio</label>
+                                <input type="text" id="productPrice" placeholder="$1,000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Categoría</label>
+                                <select id="productCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="joyas">Joyas</option>
+                                    <option value="electronicos">Electrónicos</option>
+                                    <option value="herramientas">Herramientas</option>
+                                    <option value="hogar">Hogar</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Imágenes del Producto</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                    <input type="file" id="productImages" multiple accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                                    <button type="button" onclick="document.getElementById('productImages').click()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                        📷 Subir Imágenes
+                                    </button>
+                                    <p class="text-sm text-gray-500 mt-2">Puedes subir múltiples imágenes (JPG, PNG, GIF)</p>
+                                </div>
+                                <div id="imagePreview" class="mt-4 grid grid-cols-3 gap-2 hidden">
+                                    <!-- Image previews will appear here -->
+                                </div>
+                                <div id="addMoreImagesBtn" class="mt-2 hidden">
+                                    <button type="button" onclick="addMoreImages()" class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm">
+                                        ➕ Agregar Más Imágenes
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Emoji/Icono (opcional)</label>
+                                <input type="text" id="productImage" placeholder="💍 📱 🔧 📺" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500">
+                                <p class="text-xs text-gray-500 mt-1">Si no subes imágenes, se usará este emoji</p>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Descripción</label>
+                                <textarea id="productDescription" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors font-semibold">
+                                <span id="productFormButton">Agregar Producto</span>
+                            </button>
+                            <button type="button" id="cancelEdit" onclick="cancelProductEdit()" class="w-full bg-gray-400 text-white py-2 rounded-lg hover:bg-gray-500 transition-colors font-semibold hidden">Cancelar Edición</button>
+                        </form>
+
+                        <div class="border-t pt-4">
+                            <h4 class="font-bold mb-4">Productos Actuales:</h4>
+                            <div id="adminProductsList" class="space-y-2 max-h-60 overflow-y-auto">
+                                <!-- Products list will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">📞</span>
+                            Información de Contacto
+                        </h3>
+                        
+                        <form id="contactInfoForm" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Dirección</label>
+                                <input type="text" id="businessAddress" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Teléfono</label>
+                                <input type="tel" id="businessPhone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Horario Lunes - Viernes</label>
+                                <input type="text" id="businessHoursWeek" placeholder="9:00 AM - 7:00 PM" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Horario Sábados</label>
+                                <input type="text" id="businessHoursSat" placeholder="9:00 AM - 5:00 PM" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Área de Servicio a Domicilio</label>
+                                <input type="text" id="serviceArea" placeholder="Disponible en toda la ciudad" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                            </div>
+                            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold">Actualizar Información</button>
+                        </form>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="mt-8 bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                        <span class="mr-2">⚡</span>
+                        Acciones Rápidas
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <button onclick="exportData()" class="bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                            📥 Exportar Datos
+                        </button>
+                        <button onclick="importData()" class="bg-orange-600 text-white py-3 px-4 rounded-lg hover:bg-orange-700 transition-colors font-semibold">
+                            📤 Importar Datos
+                        </button>
+                        <button onclick="resetData()" class="bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition-colors font-semibold">
+                            🔄 Restaurar Datos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Modal -->
+    <div id="consultationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-2xl font-bold mb-4" id="modalTitle">Consulta de Servicio</h3>
+                <form id="consultationForm">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Nombre</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Teléfono</label>
+                            <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Descripción del artículo/consulta</label>
+                            <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" required></textarea>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="domicilio" class="mr-2">
+                            <label for="domicilio" class="text-gray-700">Solicitar servicio a domicilio</label>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 mt-6">
+                        <button type="submit" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">Enviar Consulta</button>
+                        <button type="button" onclick="closeModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div id="productModalContent">
+                <!-- Product details will be populated by JavaScript -->
+            </div>
+            <div class="flex gap-4 mt-6">
+                <button onclick="contactForProduct()" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">Contactar</button>
+                <button onclick="apartProduct()" class="flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors">Apartar</button>
+                <button onclick="closeProductModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+                    <span class="text-purple-800 font-bold">💰</span>
+                </div>
+                <h3 class="text-xl font-bold">Al Paso Cash</h3>
+            </div>
+            <p class="mb-4">Tu casa de empeños de confianza con servicio a domicilio</p>
+            <p class="text-sm opacity-75">&copy; 2024 Al Paso Cash. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data storage
+        let products = [
+            { id: 1, name: "Anillo de Oro 18k", price: "$2,500", category: "joyas", image: "💍", images: [], description: "Hermoso anillo de oro de 18 quilates con diseño clásico" },
+            { id: 2, name: "iPhone 13 Pro", price: "$15,000", category: "electronicos", image: "📱", images: [], description: "iPhone 13 Pro en excelente estado, 128GB" },
+            { id: 3, name: "Taladro Profesional", price: "$3,200", category: "herramientas", image: "🔧", images: [], description: "Taladro profesional con múltiples brocas incluidas" },
+            { id: 4, name: "Collar de Plata", price: "$1,800", category: "joyas", image: "📿", images: [], description: "Elegante collar de plata con diseño moderno" },
+            { id: 5, name: "Laptop Gaming", price: "$25,000", category: "electronicos", image: "💻", images: [], description: "Laptop para gaming de alta gama, perfecta para profesionales" },
+            { id: 6, name: "Microondas Samsung", price: "$4,500", category: "hogar", image: "📺", images: [], description: "Microondas Samsung de 1.2 pies cúbicos, como nuevo" },
+            { id: 7, name: "Reloj Rolex", price: "$45,000", category: "joyas", image: "⌚", images: [], description: "Reloj Rolex auténtico en perfectas condiciones" },
+            { id: 8, name: "PlayStation 5", price: "$12,000", category: "electronicos", image: "🎮", images: [], description: "Consola PlayStation 5 con controles adicionales" }
+        ];
+
+        let currentProductImages = [];
+
+        let contactInfo = {
+            address: "Calle Principal #123, Ciudad",
+            phone: "+503 60087785",
+            hoursWeek: "9:00 AM - 7:00 PM",
+            hoursSat: "9:00 AM - 5:00 PM",
+            serviceArea: "Disponible en toda la ciudad"
+        };
+
+        let currentFilter = 'todos';
+        let selectedProduct = null;
+        let editingProductId = null;
+        let nextProductId = 9;
+        let consultations = [];
+        let nextConsultationId = 1;
+
+        // Load data from localStorage
+        function loadStoredData() {
+            const storedProducts = localStorage.getItem('alPasoCashProducts');
+            const storedContact = localStorage.getItem('alPasoCashContact');
+            const storedConsultations = localStorage.getItem('alPasoCashConsultations');
+            
+            if (storedProducts) {
+                products = JSON.parse(storedProducts);
+                nextProductId = Math.max(...products.map(p => p.id)) + 1;
+            }
+            
+            if (storedContact) {
+                contactInfo = JSON.parse(storedContact);
+            }
+            
+            if (storedConsultations) {
+                consultations = JSON.parse(storedConsultations);
+                nextConsultationId = Math.max(...consultations.map(c => c.id), 0) + 1;
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('alPasoCashProducts', JSON.stringify(products));
+            localStorage.setItem('alPasoCashContact', JSON.stringify(contactInfo));
+            localStorage.setItem('alPasoCashConsultations', JSON.stringify(consultations));
+        }
+
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.remove('hidden');
+            document.getElementById(sectionName).classList.add('fade-in');
+            
+            // Close mobile menu
+            document.getElementById('mobileMenu').classList.add('hidden');
+            
+            // Load specific section content
+            if (sectionName === 'catalogo') {
+                loadProducts();
+            } else if (sectionName === 'admin') {
+                loadAdminSection();
+            } else if (sectionName === 'contacto') {
+                loadContactInfo();
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Service detail functions
+        function showServiceDetail(service) {
+            showSection('servicios');
+        }
+
+        // Consultation functions
+        function openConsultation(serviceType) {
+            document.getElementById('modalTitle').textContent = `Consulta de ${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}`;
+            document.getElementById('consultationModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('consultationModal').classList.add('hidden');
+        }
+
+        // Product functions
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            const filteredProducts = currentFilter === 'todos' ? products : products.filter(p => p.category === currentFilter);
+            
+            grid.innerHTML = filteredProducts.map(product => {
+                const hasImages = product.images && product.images.length > 0;
+                const displayImage = hasImages ? 
+                    `<img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover">` :
+                    `<div class="text-6xl">${product.image}</div>`;
+                
+                return `
+                    <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer" onclick="showProductDetail(${product.id})">
+                        <div class="h-48 bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center relative">
+                            ${displayImage}
+                            ${hasImages && product.images.length > 1 ? 
+                                `<div class="absolute top-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-xs">
+                                    📷 ${product.images.length}
+                                </div>` : ''
+                            }
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-lg mb-2">${product.name}</h4>
+                            <p class="text-2xl font-bold text-purple-600 mb-2">${product.price}</p>
+                            <p class="text-gray-600 text-sm">${product.description}</p>
+                            <div class="mt-4 flex gap-2">
+                                <button onclick="event.stopPropagation(); contactForProduct(${product.id})" class="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors text-sm">Contactar</button>
+                                <button onclick="event.stopPropagation(); apartProduct(${product.id})" class="flex-1 bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors text-sm">Apartar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterProducts(category) {
+            currentFilter = category;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('bg-purple-600', 'text-white');
+            
+            loadProducts();
+        }
+
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            selectedProduct = product;
+            
+            const hasImages = product.images && product.images.length > 0;
+            
+            let imageSection = '';
+            if (hasImages) {
+                imageSection = `
+                    <div class="mb-6">
+                        <div class="relative">
+                            <div id="imageCarousel" class="w-full h-80 bg-gray-100 rounded-lg overflow-hidden relative">
+                                <img id="currentImage" src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover">
+                                ${product.images.length > 1 ? `
+                                    <button onclick="previousImage()" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all">
+                                        ←
+                                    </button>
+                                    <button onclick="nextImage()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all">
+                                        →
+                                    </button>
+                                    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                                        ${product.images.map((_, index) => `
+                                            <button onclick="goToImage(${index})" class="w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all" id="dot-${index}"></button>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            ${product.images.length > 1 ? `
+                                <div class="mt-4 grid grid-cols-4 gap-2">
+                                    ${product.images.map((img, index) => `
+                                        <img src="${img}" alt="${product.name} ${index + 1}" 
+                                             class="w-full h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-purple-500 transition-all"
+                                             onclick="goToImage(${index})">
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            } else {
+                imageSection = `
+                    <div class="mb-6">
+                        <div class="w-full h-80 bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center">
+                            <div class="text-8xl">${product.image}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('productModalContent').innerHTML = `
+                ${imageSection}
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold mb-2">${product.name}</h3>
+                    <p class="text-3xl font-bold text-purple-600 mb-4">${product.price}</p>
+                    <p class="text-gray-600">${product.description}</p>
+                </div>
+            `;
+            
+            // Initialize carousel
+            if (hasImages && product.images.length > 1) {
+                currentImageIndex = 0;
+                currentProductImages = product.images;
+                updateCarouselDots();
+            }
+            
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        let currentImageIndex = 0;
+
+        function nextImage() {
+            if (currentProductImages.length > 1) {
+                currentImageIndex = (currentImageIndex + 1) % currentProductImages.length;
+                updateCarouselImage();
+            }
+        }
+
+        function previousImage() {
+            if (currentProductImages.length > 1) {
+                currentImageIndex = currentImageIndex === 0 ? currentProductImages.length - 1 : currentImageIndex - 1;
+                updateCarouselImage();
+            }
+        }
+
+        function goToImage(index) {
+            currentImageIndex = index;
+            updateCarouselImage();
+        }
+
+        function updateCarouselImage() {
+            const currentImage = document.getElementById('currentImage');
+            if (currentImage) {
+                currentImage.src = currentProductImages[currentImageIndex];
+                updateCarouselDots();
+            }
+        }
+
+        function updateCarouselDots() {
+            currentProductImages.forEach((_, index) => {
+                const dot = document.getElementById(`dot-${index}`);
+                if (dot) {
+                    if (index === currentImageIndex) {
+                        dot.classList.remove('bg-opacity-50');
+                        dot.classList.add('bg-opacity-100');
+                    } else {
+                        dot.classList.remove('bg-opacity-100');
+                        dot.classList.add('bg-opacity-50');
+                    }
+                }
+            });
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            selectedProduct = null;
+        }
+
+        function contactForProduct(productId = null) {
+            const product = productId ? products.find(p => p.id === productId) : selectedProduct;
+            if (product) {
+                openContactModal(product, 'contacto');
+            }
+        }
+
+        function apartProduct(productId = null) {
+            const product = productId ? products.find(p => p.id === productId) : selectedProduct;
+            if (product) {
+                openContactModal(product, 'apartado');
+            }
+        }
+
+        function openContactModal(product, type) {
+            const modalTitle = type === 'apartado' ? 
+                `Apartar: ${product.name}` : 
+                `Contactar por: ${product.name}`;
+            
+            document.getElementById('modalTitle').textContent = modalTitle;
+            
+            // Pre-fill the description with product info
+            const textarea = document.querySelector('#consultationForm textarea');
+            textarea.value = type === 'apartado' ? 
+                `Quiero apartar el producto: ${product.name} - ${product.price}` :
+                `Estoy interesado en: ${product.name} - ${product.price}`;
+            
+            // Store the product and type for later use
+            window.currentConsultationProduct = product;
+            window.currentConsultationType = type;
+            
+            document.getElementById('consultationModal').classList.remove('hidden');
+            closeProductModal();
+        }
+
+        // Contact info functions
+        function loadContactInfo() {
+            document.getElementById('contactInfo').innerHTML = `
+                <div class="flex items-center">
+                    <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4">📍</div>
+                    <div>
+                        <p class="font-semibold">Dirección</p>
+                        <p class="text-gray-600">${contactInfo.address}</p>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4">📞</div>
+                    <div>
+                        <p class="font-semibold">Teléfono</p>
+                        <p class="text-gray-600">${contactInfo.phone}</p>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4">⏰</div>
+                    <div>
+                        <p class="font-semibold">Horarios</p>
+                        <p class="text-gray-600">Lun - Vie: ${contactInfo.hoursWeek}</p>
+                        <p class="text-gray-600">Sáb: ${contactInfo.hoursSat}</p>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4">🚗</div>
+                    <div>
+                        <p class="font-semibold">Servicio a Domicilio</p>
+                        <p class="text-gray-600">${contactInfo.serviceArea}</p>
+                    </div>
+
+                    <!-- Consultations Management -->
+                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-purple-800 flex items-center">
+                            <span class="mr-2">💬</span>
+                            Consultas de Clientes
+                        </h3>
+                        
+                        <div class="mb-4 flex justify-between items-center">
+                            <p class="text-sm text-gray-600">Total de consultas: <span id="consultationsCount" class="font-bold">0</span></p>
+                            <button onclick="clearAllConsultations()" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Limpiar Todo</button>
+                        </div>
+                        
+                        <div id="consultationsList" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Consultations will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Las consultas se guardan automáticamente cuando los clientes usan los formularios de contacto, apartado o consulta de productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Image handling functions
+        function handleImageUpload(event) {
+            const files = Array.from(event.target.files);
+            const preview = document.getElementById('imagePreview');
+            
+            if (files.length > 0) {
+                preview.classList.remove('hidden');
+                
+                // No limpiar las imágenes existentes, solo agregar las nuevas
+                let processedFiles = 0;
+                const totalFiles = files.length;
+                
+                files.forEach((file, index) => {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            // Agregar la nueva imagen al array existente
+                            currentProductImages.push(e.target.result);
+                            
+                            // Crear el elemento de vista previa
+                            const imageDiv = document.createElement('div');
+                            imageDiv.className = 'relative';
+                            const currentIndex = currentProductImages.length - 1;
+                            imageDiv.innerHTML = `
+                                <img src="${e.target.result}" alt="Preview ${currentIndex + 1}" class="w-full h-20 object-cover rounded">
+                                <button type="button" onclick="removeImage(${currentIndex})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">×</button>
+                            `;
+                            preview.appendChild(imageDiv);
+                            
+                            processedFiles++;
+                            if (processedFiles === totalFiles) {
+                                // Actualizar todos los botones de eliminar con los índices correctos
+                                updateImagePreview();
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        }
+
+        function updateImagePreview() {
+            const preview = document.getElementById('imagePreview');
+            const addMoreBtn = document.getElementById('addMoreImagesBtn');
+            
+            if (currentProductImages.length === 0) {
+                preview.classList.add('hidden');
+                addMoreBtn.classList.add('hidden');
+                return;
+            }
+            
+            preview.classList.remove('hidden');
+            addMoreBtn.classList.remove('hidden');
+            preview.innerHTML = '';
+            
+            currentProductImages.forEach((imgSrc, index) => {
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'relative';
+                imageDiv.innerHTML = `
+                    <img src="${imgSrc}" alt="Preview ${index + 1}" class="w-full h-20 object-cover rounded">
+                    <button type="button" onclick="removeImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">×</button>
+                `;
+                preview.appendChild(imageDiv);
+            });
+        }
+
+        function addMoreImages() {
+            // Limpiar el input para permitir seleccionar las mismas imágenes si es necesario
+            document.getElementById('productImages').value = '';
+            // Abrir el selector de archivos
+            document.getElementById('productImages').click();
+        }
+
+        function removeImage(index) {
+            currentProductImages.splice(index, 1);
+            
+            if (currentProductImages.length === 0) {
+                document.getElementById('imagePreview').classList.add('hidden');
+                document.getElementById('productImages').value = '';
+            } else {
+                // Actualizar la vista previa con los índices correctos
+                updateImagePreview();
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500 text-white' : 
+                type === 'error' ? 'bg-red-500 text-white' : 
+                'bg-blue-500 text-white'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Consultation functions
+        function addConsultation(consultationData) {
+            const newConsultation = {
+                id: nextConsultationId++,
+                ...consultationData,
+                date: new Date().toLocaleString('es-ES'),
+                status: 'pendiente'
+            };
+            consultations.unshift(newConsultation);
+            saveData();
+            loadConsultationsList();
+            return newConsultation;
+        }
+
+        function loadConsultationsList() {
+            const list = document.getElementById('consultationsList');
+            const count = document.getElementById('consultationsCount');
+            
+            if (!list || !count) return;
+            
+            count.textContent = consultations.length;
+            
+            if (consultations.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-center py-4">No hay consultas pendientes</p>';
+                return;
+            }
+            
+            list.innerHTML = consultations.map(consultation => `
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 ${
+                    consultation.status === 'pendiente' ? 'border-orange-500' : 
+                    consultation.status === 'respondida' ? 'border-green-500' : 
+                    'border-gray-500'
+                }">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex-1">
+                            <h5 class="font-bold text-sm">${consultation.name}</h5>
+                            <p class="text-xs text-gray-600">${consultation.phone} • ${consultation.date}</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <span class="px-2 py-1 text-xs rounded-full ${
+                                consultation.status === 'pendiente' ? 'bg-orange-100 text-orange-800' : 
+                                consultation.status === 'respondida' ? 'bg-green-100 text-green-800' : 
+                                'bg-gray-100 text-gray-800'
+                            }">${consultation.status}</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-2">${consultation.message}</p>
+                    ${consultation.serviceType ? `<p class="text-xs text-purple-600 mb-2"><strong>Servicio:</strong> ${consultation.serviceType}</p>` : ''}
+                    ${consultation.domicilio ? '<p class="text-xs text-blue-600 mb-2">🚗 Solicita servicio a domicilio</p>' : ''}
+                    <div class="flex gap-2 mt-3">
+                        <button onclick="markAsResponded(${consultation.id})" class="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600">Marcar Respondida</button>
+                        <button onclick="deleteConsultation(${consultation.id})" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">Eliminar</button>
+                        <button onclick="contactClient('${consultation.phone}')" class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">Contactar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function markAsResponded(consultationId) {
+            const consultation = consultations.find(c => c.id === consultationId);
+            if (consultation) {
+                consultation.status = 'respondida';
+                saveData();
+                loadConsultationsList();
+                showNotification('Consulta marcada como respondida', 'success');
+            }
+        }
+
+        function deleteConsultation(consultationId) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta consulta?')) {
+                consultations = consultations.filter(c => c.id !== consultationId);
+                saveData();
+                loadConsultationsList();
+                showNotification('Consulta eliminada', 'success');
+            }
+        }
+
+        function clearAllConsultations() {
+            if (confirm('¿Estás seguro de que quieres eliminar todas las consultas? Esta acción no se puede deshacer.')) {
+                consultations = [];
+                saveData();
+                loadConsultationsList();
+                showNotification('Todas las consultas han sido eliminadas', 'success');
+            }
+        }
+
+        function contactClient(phone) {
+            // Usar siempre el número de Al Paso Cash para recibir las consultas
+            const businessPhone = '50360087785'; // Número fijo de Al Paso Cash
+            
+            // Crear mensaje personalizado con la información del cliente
+            const clientInfo = `Cliente: ${phone}`;
+            const message = encodeURIComponent(`¡Hola! Tengo una consulta de un cliente. ${clientInfo} - Enviado desde Al Paso Cash.`);
+            
+            // URL de WhatsApp dirigida al número del negocio
+            const whatsappUrl = `https://wa.me/${businessPhone}?text=${message}`;
+            
+            console.log('Abriendo WhatsApp URL:', whatsappUrl); // Para debug
+            
+            // Intentar abrir WhatsApp
+            try {
+                const opened = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+                
+                if (opened) {
+                    showNotification(`Abriendo WhatsApp para contactar al cliente: ${phone}`, 'success');
+                } else {
+                    // Si el popup fue bloqueado, intentar con location
+                    window.location.href = whatsappUrl;
+                    showNotification(`Redirigiendo a WhatsApp...`, 'info');
+                }
+            } catch (error) {
+                console.error('Error al abrir WhatsApp:', error);
+                // Fallback: copiar número al portapapeles
+                navigator.clipboard.writeText(businessPhone).then(() => {
+                    showNotification(`Error al abrir WhatsApp. Número copiado: ${businessPhone}`, 'error');
+                }).catch(() => {
+                    showNotification(`Error al abrir WhatsApp. Contacta manualmente: ${businessPhone}`, 'error');
+                });
+            }
+        }
+
+        // Admin access system
+        let isAdminMode = false;
+        const ADMIN_PASSWORD = "admin123"; // Cambiar por una contraseña segura
+
+        function showAdminSection() {
+            if (!isAdminMode) {
+                const password = prompt("Ingrese la contraseña de administrador:");
+                if (password === ADMIN_PASSWORD) {
+                    isAdminMode = true;
+                    document.getElementById('adminBtn').classList.remove('hidden');
+                    document.getElementById('adminBtnMobile').classList.remove('hidden');
+                    showSection('admin');
+                    showNotification('¡Acceso de administrador activado!', 'success');
+                } else {
+                    showNotification('Contraseña incorrecta', 'error');
+                    return;
+                }
+            } else {
+                showSection('admin');
+            }
+        }
+
+        // Admin functions
+        function loadAdminSection() {
+            loadAdminProductsList();
+            loadContactForm();
+            loadConsultationsList();
+        }
+
+        function loadAdminProductsList() {
+            const list = document.getElementById('adminProductsList');
+            list.innerHTML = products.map(product => `
+                <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-3">${product.image}</span>
+                        <div>
+                            <p class="font-semibold">${product.name}</p>
+                            <p class="text-sm text-gray-600">${product.price} - ${product.category}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editProduct(${product.id})" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Editar</button>
+                        <button onclick="deleteProduct(${product.id})" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadContactForm() {
+            document.getElementById('businessAddress').value = contactInfo.address;
+            document.getElementById('businessPhone').value = contactInfo.phone;
+            document.getElementById('businessHoursWeek').value = contactInfo.hoursWeek;
+            document.getElementById('businessHoursSat').value = contactInfo.hoursSat;
+            document.getElementById('serviceArea').value = contactInfo.serviceArea;
+        }
+
+        function addProduct(productData) {
+            const newProduct = {
+                id: nextProductId++,
+                ...productData,
+                images: [...currentProductImages]
+            };
+            products.push(newProduct);
+            saveData();
+            loadAdminProductsList();
+            currentProductImages = [];
+            document.getElementById('imagePreview').classList.add('hidden');
+            showNotification('¡Producto agregado exitosamente!', 'success');
+        }
+
+        function editProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            editingProductId = productId;
+            
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productImage').value = product.image || '';
+            document.getElementById('productDescription').value = product.description;
+            
+            // Load existing images
+            currentProductImages = [...(product.images || [])];
+            const preview = document.getElementById('imagePreview');
+            
+            if (currentProductImages.length > 0) {
+                preview.classList.remove('hidden');
+                preview.innerHTML = '';
+                currentProductImages.forEach((imgSrc, index) => {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'relative';
+                    imageDiv.innerHTML = `
+                        <img src="${imgSrc}" alt="Preview ${index + 1}" class="w-full h-20 object-cover rounded">
+                        <button type="button" onclick="removeImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">×</button>
+                    `;
+                    preview.appendChild(imageDiv);
+                });
+            } else {
+                preview.classList.add('hidden');
+            }
+            
+            document.getElementById('productFormButton').textContent = 'Actualizar Producto';
+            document.getElementById('cancelEdit').classList.remove('hidden');
+        }
+
+        function updateProduct(productId, productData) {
+            const index = products.findIndex(p => p.id === productId);
+            products[index] = { 
+                id: productId, 
+                ...productData,
+                images: [...currentProductImages]
+            };
+            saveData();
+            loadAdminProductsList();
+            cancelProductEdit();
+            showNotification('¡Producto actualizado exitosamente!', 'success');
+        }
+
+        function deleteProduct(productId) {
+            console.log('=== INICIO ELIMINACIÓN ===');
+            console.log('ID recibido:', productId, 'Tipo:', typeof productId);
+            
+            // Convertir a número si es string
+            const numericId = parseInt(productId);
+            console.log('ID numérico:', numericId);
+            
+            const product = products.find(p => p.id === numericId);
+            console.log('Producto encontrado:', product);
+            
+            if (!product) {
+                console.log('ERROR: Producto no encontrado');
+                console.log('IDs disponibles:', products.map(p => p.id));
+                showNotification('Producto no encontrado', 'error');
+                return;
+            }
+            
+            console.log('Confirmando eliminación de:', product.name);
+            
+            const confirmed = confirm(`¿Estás seguro de que quieres eliminar "${product.name}" del catálogo? Esta acción no se puede deshacer.`);
+            console.log('Usuario confirmó:', confirmed);
+            
+            if (confirmed) {
+                console.log('EJECUTANDO ELIMINACIÓN...');
+                
+                // Mostrar estado antes
+                console.log('Productos antes:', products.length);
+                console.log('Lista antes:', products.map(p => `${p.id}: ${p.name}`));
+                
+                // Eliminar el producto
+                const indexToRemove = products.findIndex(p => p.id === numericId);
+                console.log('Índice a eliminar:', indexToRemove);
+                
+                if (indexToRemove !== -1) {
+                    products.splice(indexToRemove, 1);
+                    console.log('Producto eliminado del array');
+                } else {
+                    console.log('ERROR: No se pudo encontrar el índice');
+                    return;
+                }
+                
+                // Mostrar estado después
+                console.log('Productos después:', products.length);
+                console.log('Lista después:', products.map(p => `${p.id}: ${p.name}`));
+                
+                // Guardar cambios
+                try {
+                    saveData();
+                    console.log('Datos guardados en localStorage');
+                } catch (error) {
+                    console.log('ERROR al guardar:', error);
+                }
+                
+                // Actualizar interfaz
+                try {
+                    loadAdminProductsList();
+                    console.log('Lista de admin actualizada');
+                } catch (error) {
+                    console.log('ERROR al actualizar lista admin:', error);
+                }
+                
+                // Actualizar catálogo si está visible
+                if (!document.getElementById('catalogo').classList.contains('hidden')) {
+                    try {
+                        loadProducts();
+                        console.log('Catálogo actualizado');
+                    } catch (error) {
+                        console.log('ERROR al actualizar catálogo:', error);
+                    }
+                }
+                
+                // Cerrar modal si es necesario
+                if (selectedProduct && selectedProduct.id === numericId) {
+                    closeProductModal();
+                    console.log('Modal cerrado');
+                }
+                
+                // Cancelar edición si es necesario
+                if (editingProductId === numericId) {
+                    cancelProductEdit();
+                    console.log('Edición cancelada');
+                }
+                
+                showNotification('¡Producto eliminado exitosamente!', 'success');
+                console.log('=== ELIMINACIÓN COMPLETADA ===');
+                
+            } else {
+                console.log('Usuario canceló la eliminación');
+            }
+        }
+
+        function cancelProductEdit() {
+            editingProductId = null;
+            document.getElementById('productForm').reset();
+            document.getElementById('productFormButton').textContent = 'Agregar Producto';
+            document.getElementById('cancelEdit').classList.add('hidden');
+            currentProductImages = [];
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('addMoreImagesBtn').classList.add('hidden');
+            document.getElementById('productImages').value = '';
+        }
+
+        function updateContactInfo(newContactInfo) {
+            contactInfo = { ...newContactInfo };
+            saveData();
+            showNotification('¡Información de contacto actualizada exitosamente!', 'success');
+        }
+
+        // Data management functions
+        function exportData() {
+            const data = {
+                products: products,
+                contactInfo: contactInfo,
+                consultations: consultations,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'al-paso-cash-data.json';
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            showNotification('¡Datos exportados exitosamente!', 'success');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (data.products && data.contactInfo) {
+                            products = data.products;
+                            contactInfo = data.contactInfo;
+                            if (data.consultations) {
+                                consultations = data.consultations;
+                            }
+                            nextProductId = Math.max(...products.map(p => p.id)) + 1;
+                            if (consultations.length > 0) {
+                                nextConsultationId = Math.max(...consultations.map(c => c.id)) + 1;
+                            }
+                            
+                            saveData();
+                            loadAdminSection();
+                            showNotification('¡Datos importados exitosamente!', 'success');
+                        } else {
+                            showNotification('Archivo de datos inválido.', 'error');
+                        }
+                    } catch (error) {
+                        showNotification('Error al leer el archivo. Asegúrate de que sea un archivo JSON válido.', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        function resetData() {
+            if (confirm('¿Estás seguro de que quieres restaurar todos los datos a los valores originales? Esta acción no se puede deshacer.')) {
+                localStorage.removeItem('alPasoCashProducts');
+                localStorage.removeItem('alPasoCashContact');
+                location.reload();
+            }
+        }
+
+        // Form submissions
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const consultationData = {
+                name: formData.get('name') || this.querySelector('input[type="text"]').value,
+                phone: formData.get('phone') || this.querySelector('input[type="tel"]').value,
+                serviceType: formData.get('service') || this.querySelector('select').value,
+                message: formData.get('message') || this.querySelector('textarea').value,
+                domicilio: false,
+                source: 'Formulario de Contacto'
+            };
+            
+            addConsultation(consultationData);
+            showNotification('¡Gracias por contactarnos! Te responderemos pronto.');
+            this.reset();
+        });
+
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formInputs = this.querySelectorAll('input, textarea, select');
+            const consultationData = {
+                name: formInputs[0].value,
+                phone: formInputs[1].value,
+                message: formInputs[2].value,
+                domicilio: document.getElementById('domicilio').checked,
+                serviceType: window.currentConsultationType || 'Consulta General',
+                productName: window.currentConsultationProduct ? window.currentConsultationProduct.name : null,
+                source: window.currentConsultationProduct ? 
+                    (window.currentConsultationType === 'apartado' ? 'Apartado de Producto' : 'Consulta de Producto') : 
+                    'Consulta de Servicio'
+            };
+            
+            addConsultation(consultationData);
+            showNotification('¡Consulta enviada exitosamente! Nos pondremos en contacto contigo pronto.');
+            closeModal();
+            this.reset();
+            
+            // Clear stored product data
+            window.currentConsultationProduct = null;
+            window.currentConsultationType = null;
+        });
+
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const productData = {
+                name: document.getElementById('productName').value,
+                price: document.getElementById('productPrice').value,
+                category: document.getElementById('productCategory').value,
+                image: document.getElementById('productImage').value || '📦',
+                description: document.getElementById('productDescription').value
+            };
+            
+            if (editingProductId) {
+                updateProduct(editingProductId, productData);
+            } else {
+                addProduct(productData);
+                this.reset();
+            }
+        });
+
+        document.getElementById('contactInfoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newContactInfo = {
+                address: document.getElementById('businessAddress').value,
+                phone: document.getElementById('businessPhone').value,
+                hoursWeek: document.getElementById('businessHoursWeek').value,
+                hoursSat: document.getElementById('businessHoursSat').value,
+                serviceArea: document.getElementById('serviceArea').value
+            };
+            
+            updateContactInfo(newContactInfo);
+        });
+
+        // Special admin access (triple click on logo)
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+
+        function handleLogoClick() {
+            logoClickCount++;
+            console.log(`Click ${logoClickCount} en el logo`); // Para debug
+            
+            if (logoClickTimer) {
+                clearTimeout(logoClickTimer);
+            }
+            
+            if (logoClickCount >= 3) {
+                console.log('¡Triple click detectado! Activando modo admin...'); // Para debug
+                // Activar directamente el modo admin sin pedir contraseña en el triple click
+                isAdminMode = true;
+                document.getElementById('adminBtn').classList.remove('hidden');
+                document.getElementById('adminBtnMobile').classList.remove('hidden');
+                showSection('admin');
+                showNotification('¡Acceso secreto de administrador activado! 🔓', 'success');
+                logoClickCount = 0;
+                return;
+            }
+            
+            logoClickTimer = setTimeout(() => {
+                console.log('Timer reset, clicks:', logoClickCount); // Para debug
+                logoClickCount = 0;
+            }, 2000); // 2 segundos para hacer los 3 clicks
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStoredData();
+            showSection('inicio');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'985c2c1651c55c82',t:'MTc1ODk4ODM4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
